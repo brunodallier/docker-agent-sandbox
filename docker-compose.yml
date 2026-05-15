@@ -1,0 +1,24 @@
+services:
+  agent:
+    image: agent-sandbox:base
+    container_name: agent-sandbox
+    working_dir: /workspace
+    user: "10001:10001"
+    tty: true
+    stdin_open: true
+    read_only: true
+    tmpfs:
+      - /tmp:size=512m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 2g
+    cpus: 2
+    pids_limit: 256
+    volumes:
+      - ./workspace:/workspace
+      - ./memory:/memory
+      - ./skills:/skills
+      - ./config:/config:ro
+      - ./data:/data
