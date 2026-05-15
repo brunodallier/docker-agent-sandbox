@@ -1,8 +1,8 @@
 # docker-agent-sandbox
 
-A safe local Docker sandbox for running AI agents on your machine.
+A reusable Docker Compose template for running AI agents safely on your machine.
 
-This project is designed to let AI agents work inside controlled folders, without giving them full access to your computer.
+This repository is a base template. It does not install Codex, Claude Code, OpenCode, OpenClaude, Hermes, or any other agent. Future agent projects should reuse this structure in separate repositories.
 
 ```text
 +----------------------------------------------+
@@ -12,7 +12,7 @@ This project is designed to let AI agents work inside controlled folders, withou
 | Container: Linux environment                 |
 | Agent user: non-root                         |
 | Workspace: controlled bind mount             |
-| Goal: safer AI agent execution               |
+| Goal: reusable secure agent base             |
 +----------------------------------------------+
 ```
 
@@ -23,6 +23,8 @@ AI agents can run commands, edit files, install tools, and automate work.
 That is useful, but it also creates risk.
 
 This sandbox limits what an agent can access and modify. The agent works inside a Docker container and only sees the folders we explicitly mount.
+
+This repository should stay generic. Agent-specific installation steps belong in future projects that copy or extend this base.
 
 ## Project Structure
 
@@ -140,13 +142,19 @@ These tools are installed in the Docker image, not directly on Windows.
 
 ## Main Commands
 
-Build the image:
+Build the image manually:
 
 ```powershell
 docker build -t agent-sandbox:base ./agent
 ```
 
-Start the sandbox:
+Start the sandbox and build the image if needed:
+
+```powershell
+docker compose up -d --build
+```
+
+Start the sandbox without rebuilding:
 
 ```powershell
 docker compose up -d
@@ -356,4 +364,4 @@ Do not use `git add .` blindly if agents have recently generated files.
 
 This sandbox is a reusable base.
 
-Future agents such as Codex, Claude Code, OpenCode, OpenClaude, Hermes, or custom agents can be added later as separate services or specialized images.
+Future agents such as Codex, Claude Code, OpenCode, OpenClaude, Hermes, or custom agents should be added later in separate projects or specialized images that reuse this template.

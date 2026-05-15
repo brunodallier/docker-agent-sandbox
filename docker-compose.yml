@@ -1,5 +1,7 @@
 services:
   agent:
+    build:
+      context: ./agent
     image: agent-sandbox:base
     container_name: agent-sandbox
     working_dir: /workspace
