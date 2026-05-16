@@ -39,6 +39,7 @@ C:\docker-agents
 |   |-- data/
 |   |-- config/
 |   |-- docker-compose.yml
+|   |-- .env.example
 |   |-- .gitignore
 |   `-- README.md
 |
@@ -61,6 +62,45 @@ C:\docker-agents
 | secrets   | Real API keys and passwords              | not mounted |
 +-----------+------------------------------------------+------------+
 ```
+
+## Requirements
+
+To use this template, you need:
+
+```text
++----------------+-----------------------------------------+
+| Requirement    | Purpose                                 |
++----------------+-----------------------------------------+
+| Docker Desktop | Run Linux containers on your machine    |
+| Docker Compose | Start the sandbox from docker-compose   |
+| Git            | Clone, version, and push repositories   |
+| PowerShell     | Run the documented Windows commands     |
+| VS Code        | Optional, but recommended for editing   |
+| GitHub account | Required only to use this as a template |
++----------------+-----------------------------------------+
+```
+
+Docker Desktop must be running before using this project.
+
+Check Docker:
+
+```powershell
+docker version
+```
+
+Check Docker Compose:
+
+```powershell
+docker compose version
+```
+
+Check Git:
+
+```powershell
+git --version
+```
+
+GitHub CLI is not required.
 
 ## Main Concepts
 
@@ -139,6 +179,84 @@ bash --version
 ```
 
 These tools are installed in the Docker image, not directly on Windows.
+
+## Using This Repository as a Template
+
+This repository is intended to be used as a GitHub template.
+
+It should remain generic and clean. Do not install real AI agents directly in this repository.
+
+Recommended workflow:
+
+```text
+1. Open this repository on GitHub
+2. Click "Use this template"
+3. Create a new repository for a specific agent project
+4. Clone the new repository locally
+5. Run the sandbox with Docker Compose
+6. Install and configure agents only in the new project
+```
+
+Example future repositories:
+
+```text
+hermes-agent-lab
+codex-agent-lab
+claude-code-sandbox
+opencode-agent-lab
+```
+
+This repository is the base. Agent-specific repositories are the experiments.
+
+GitHub reference:
+
+```text
+https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-template-repository
+```
+
+## First Run From a New Template Repository
+
+After creating a new repository from this template, clone it locally:
+
+```powershell
+git clone https://github.com/YOUR-USER/YOUR-NEW-REPO.git
+cd YOUR-NEW-REPO
+```
+
+Start the sandbox and build the image:
+
+```powershell
+docker compose up -d --build
+```
+
+Enter the container:
+
+```powershell
+docker compose exec agent bash
+```
+
+Inside the container, verify:
+
+```bash
+whoami
+pwd
+node --version
+python3 --version
+git --version
+```
+
+Expected result:
+
+```text
+whoami -> agent
+pwd    -> /workspace
+```
+
+Stop the sandbox:
+
+```powershell
+docker compose down
+```
 
 ## Main Commands
 
