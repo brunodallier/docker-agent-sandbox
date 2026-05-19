@@ -3,7 +3,6 @@ services:
     build:
       context: ./agent
     image: agent-sandbox:base
-    container_name: agent-sandbox
     working_dir: /workspace
     user: "10001:10001"
     tty: true
